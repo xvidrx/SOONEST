@@ -12,11 +12,6 @@
     .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
     @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
     .active-lang { font-weight: bold; text-decoration: underline; }
-    /* Адаптив для кнопок на мобильных */
-    @media (max-width: 768px) {
-      .cta-btn { font-size: 1.5rem; padding: 1rem 2rem; }
-    }
-    img { max-width: 100%; height: auto; }
   </style>
 
   <script>
@@ -27,8 +22,8 @@
         hero_btn: "Отримати зі знижкою",
         advantages_title: "Переваги SOONEST",
         adv1: "Реальна ємність 80000 mAh",
-        adv2: "6 портів + швидке заряджання",
-        adv3: "QC 3.0 25W",
+        adv2: "QC 3.0 + PD 65W",
+        adv3: "6 портів",
         tech_title: "Технічні характеристики",
         tech_capacity: "Ємність: 80000 mAh",
         tech_ports: "Порти: USB-A ×4, USB-C, MicroUSB, Lightning",
@@ -44,8 +39,8 @@
         hero_btn: "Получить со скидкой",
         advantages_title: "Преимущества SOONEST",
         adv1: "Реальная ёмкость 80000 mAh",
-        adv2: "6 портов + быстрая зарядка",
-        adv3: "QC 3.0 25W",
+        adv2: "QC 3.0 + PD 65W",
+        adv3: "6 портов",
         tech_title: "Технические характеристики",
         tech_capacity: "Ёмкость: 80000 mAh",
         tech_ports: "Порты: USB-A ×4, USB-C, MicroUSB, Lightning",
@@ -109,8 +104,8 @@
     <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
       <div class="text-white space-y-6">
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-xl" data-i18n="hero_title"></h1>
-        <p class="text-xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
-        <a href="#buy" class="bg-white text-red-600 px-10 py-4 rounded-2xl font-bold text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse cta-btn mt-4 inline-block" data-i18n="hero_btn"></a>
+        <p class="text-xl md:text-2xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
+        <a href="#buy" class="bg-white text-red-600 px-8 sm:px-10 py-3 sm:py-4 rounded-2xl font-bold text-2xl sm:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse mt-4 inline-block" data-i18n="hero_btn"></a>
       </div>
       <img src="images/1.png" alt="Power Bank SOONEST" class="rounded-2xl shadow-2xl w-full fade-in" />
     </div>
@@ -135,12 +130,13 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section class="max-w-6xl mx-auto p-6">
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <img src="images/5.png" class="rounded-xl shadow" />
-      <img src="images/4.png" class="rounded-xl shadow" />
-      <img src="images/6.png" class="rounded-xl shadow" />
+  <!-- IMAGES -->
+  <section class="max-w-6xl mx-auto p-6 fade-in">
+    <h2 class="text-3xl font-bold text-center mb-6"></h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="images/5.png" class="rounded-xl shadow w-full h-auto object-cover" />
+      <img src="images/4.png" class="rounded-xl shadow w-full h-auto object-cover" />
+      <img src="images/6.png" class="rounded-xl shadow w-full h-auto object-cover" />
     </div>
   </section>
 
@@ -160,7 +156,7 @@
     <h2 class="text-5xl font-extrabold mb-6 drop-shadow" data-i18n="sale_price"></h2>
     <p class="text-3xl mb-4 font-light" data-i18n="sale_left"></p>
     <p id="countdown" class="text-4xl font-bold mb-10">Завантаження...</p>
-    <a href="https://vm.tiktok.com/ZMAvfYyc2" class="bg-white text-red-600 px-10 py-4 rounded-2xl font-bold text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse cta-btn" data-i18n="order_btn"></a>
+    <a href="https://vm.tiktok.com/ZMAvfYyc2" class="bg-white text-red-600 px-8 sm:px-12 py-3 sm:py-5 rounded-2xl font-bold text-2xl sm:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse" data-i18n="order_btn"></a>
   </section>
 
   <footer class="text-center text-sm py-6 opacity-60">© 2025 SOONEST</footer>
