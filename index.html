@@ -9,8 +9,8 @@
     .hero-bg { background: linear-gradient(135deg, #ff3b3b 0%, #ff7c00 100%); }
     .cta-pulse { animation: pulse 1.6s infinite; }
     @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100%{transform:scale(1);} }
-    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
-    @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
     .active-lang { font-weight: bold; text-decoration: underline; }
   </style>
 
@@ -85,29 +85,42 @@
       }, 1000);
     }
 
+    function initFadeIn() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }
+
     window.onload = function() {
       detectBrowserLang();
       countdownTimer();
+      initFadeIn();
     };
   </script>
 </head>
 <body class="bg-slate-900 text-white font-sans">
 
-  <!-- LANGUAGE SWITCH CENTER -->
+  <!-- LANGUAGE SWITCH -->
   <div class="p-4 flex gap-3 justify-center text-lg">
     <button id="lang-uk" class="lang-btn" onclick="switchLang('uk')">UA</button>
     <button id="lang-ru" class="lang-btn" onclick="switchLang('ru')">RU</button>
   </div>
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero-bg py-20 shadow-xl fade-in">
     <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="text-white space-y-6">
+      <div class="space-y-6">
         <h1 class="text-3xl md:text-5xl font-extrabold leading-tight drop-shadow-xl" data-i18n="hero_title"></h1>
         <p class="text-lg md:text-xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
-        <a href="#buy" class="bg-white text-red-600 px-8 py-3 rounded-2xl font-bold text-xl md:text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse mt-4 inline-block" data-i18n="hero_btn"></a>
+        <a href="#buy" class="bg-white text-red-600 px-8 py-3 rounded-2xl font-bold text-xl md:text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse" data-i18n="hero_btn"></a>
       </div>
-      <img src="images/1.png" alt="Power Bank SOONEST" class="rounded-2xl shadow-2xl w-full fade-in" />
+      <img src="images/1.png" alt="Power Bank" class="rounded-2xl shadow-2xl w-full fade-in" />
     </div>
   </section>
 
@@ -116,21 +129,21 @@
     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-i18n="advantages_title"></h2>
     <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
       <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/2.png" alt="Ємність 80000 mAh" class="mx-auto w-20 mb-4" />
+        <img src="images/2.png" alt="Ємність" class="mx-auto w-20 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv1"></p>
       </div>
       <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/3.png" alt="6 портів" class="mx-auto w-20 mb-4" />
+        <img src="images/3.png" alt="Порти" class="mx-auto w-20 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv2"></p>
       </div>
       <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/4.png" alt="QC 3.0 + PD 65W" class="mx-auto w-20 mb-4" />
+        <img src="images/4.png" alt="QC 3.0 + PD" class="mx-auto w-20 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv3"></p>
       </div>
     </div>
   </section>
     <section class="max-w-6xl mx-auto p-6">
-    <h2 class="text-3xl font-bold text-center mb-6"></h2>
+    <h2 class="text-3xl font-bold text-center mb-6">Галерея</h2>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
       <img src="images/5.png" class="rounded-xl shadow" />
       <img src="images/4.png" class="rounded-xl shadow" />
