@@ -5,13 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SOONEST 80000 mAh Fast Charge</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     .hero-bg { background: linear-gradient(135deg, #ff3b3b 0%, #ff7c00 100%); }
     .cta-pulse { animation: pulse 1.6s infinite; }
     @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100%{transform:scale(1);} }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
+    @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
     .active-lang { font-weight: bold; text-decoration: underline; }
+
+    /* ⭐ Кнопка в HERO — фікс накладання на текст */
+    .hero-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      padding: 14px 20px;
+      margin-top: 20px;    /* Гарантія що не налазить на текст */
+      font-size: 20px;
+      text-align: center;
+      box-sizing: border-box;
+      white-space: normal;
+    }
+
+    @media (min-width: 768px) {
+      .hero-btn {
+        width: auto;
+        display: inline-block;
+        padding: 16px 36px;
+        font-size: 26px;
+        margin-top: 30px;
+      }
+    }
+
+    /* ⭐ Кнопка замовлення внизу */
+    .order-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      padding: 14px 20px;
+      font-size: 22px;
+      box-sizing: border-box;
+      white-space: normal;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .order-btn {
+        font-size: 20px;
+        padding: 14px;
+      }
+    }
+
   </style>
 
   <script>
@@ -23,7 +67,7 @@
         advantages_title: "Переваги SOONEST",
         adv1: "Реальна ємність 80000 mAh",
         adv2: "6 портів + швидке заряджання",
-        adv3: "QC 3.0 + PD 65W",
+        adv3: "QC 3.0 25W",
         tech_title: "Технічні характеристики",
         tech_capacity: "Ємність: 80000 mAh",
         tech_ports: "Порти: USB-A ×4, USB-C, MicroUSB, Lightning",
@@ -40,7 +84,7 @@
         advantages_title: "Преимущества SOONEST",
         adv1: "Реальная ёмкость 80000 mAh",
         adv2: "6 портов + быстрая зарядка",
-        adv3: "QC 3.0 + PD 65W",
+        adv3: "QC 3.0 25W",
         tech_title: "Технические характеристики",
         tech_capacity: "Ёмкость: 80000 mAh",
         tech_ports: "Порты: USB-A ×4, USB-C, MicroUSB, Lightning",
@@ -68,11 +112,13 @@
     }
 
     function countdownTimer() {
-      const targetTime = (3 * 60 * 60 + 28 * 60) * 1000; // 3h 28m
+      const targetTime = (3 * 60 * 60 + 28 * 60) * 1000;
       const endTime = new Date().getTime() + targetTime;
+
       const interval = setInterval(function() {
         const now = new Date().getTime();
         const remainingTime = endTime - now;
+
         if (remainingTime <= 0) {
           clearInterval(interval);
           document.getElementById('countdown').innerHTML = "Акція завершена!";
@@ -80,81 +126,84 @@
           const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
           const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-          document.getElementById('countdown').innerHTML = hours + "ч " + minutes + "м " + seconds + "с";
+          document.getElementById('countdown').innerHTML =
+            hours + "ч " + minutes + "м " + seconds + "с";
         }
       }, 1000);
-    }
-
-    function initFadeIn() {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.2 });
-
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     }
 
     window.onload = function() {
       detectBrowserLang();
       countdownTimer();
-      initFadeIn();
     };
   </script>
 </head>
+
 <body class="bg-slate-900 text-white font-sans">
 
   <!-- LANGUAGE SWITCH -->
-  <div class="p-4 flex gap-3 justify-center text-lg">
+  <div class="p-4 flex gap-4 justify-center text-lg">
     <button id="lang-uk" class="lang-btn" onclick="switchLang('uk')">UA</button>
     <button id="lang-ru" class="lang-btn" onclick="switchLang('ru')">RU</button>
   </div>
 
   <!-- HERO -->
-  <section class="hero-bg py-20 shadow-xl fade-in">
-    <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6">
-        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight drop-shadow-xl" data-i18n="hero_title"></h1>
-        <p class="text-lg md:text-xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
-        <a href="#buy" class="bg-white text-red-600 px-8 py-3 rounded-2xl font-bold text-xl md:text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse" data-i18n="hero_btn"></a>
+  <section class="hero-bg py-12 md:py-20 shadow-xl fade-in">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center">
+
+      <div class="text-white space-y-4 md:space-y-6">
+        <h1 class="text-3xl md:text-6xl font-extrabold leading-tight" data-i18n="hero_title"></h1>
+
+        <p class="text-lg md:text-xl opacity-90" data-i18n="hero_text"></p>
+
+        <!-- ⭐ кнопка з фіксом -->
+        <a href="#buy"
+           class="hero-btn bg-white text-red-600 rounded-2xl font-bold shadow-2xl hover:bg-gray-200 transition cta-pulse"
+           data-i18n="hero_btn"></a>
       </div>
-      <img src="images/1.png" alt="Power Bank" class="rounded-2xl shadow-2xl w-full fade-in" />
+
+      <img src="images/1.png" class="rounded-2xl shadow-2xl w-full h-auto object-contain" />
     </div>
   </section>
 
   <!-- ADVANTAGES -->
-  <section class="max-w-4xl mx-auto px-6 py-20 fade-in">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12" data-i18n="advantages_title"></h2>
-    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/2.png" alt="Ємність" class="mx-auto w-20 mb-4" />
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-16 fade-in">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10" data-i18n="advantages_title"></h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+
+      <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
+        <img src="images/2.png" class="mx-auto w-20 md:w-24 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv1"></p>
       </div>
-      <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/3.png" alt="Порти" class="mx-auto w-20 mb-4" />
+
+      <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
+        <img src="images/3.png" class="mx-auto w-20 md:w-24 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv2"></p>
       </div>
-      <div class="bg-slate-800 p-6 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/4.png" alt="QC 3.0 + PD" class="mx-auto w-20 mb-4" />
+
+      <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
+        <img src="images/4.png" class="mx-auto w-20 md:w-24 mb-4" />
         <p class="text-lg md:text-xl font-bold" data-i18n="adv3"></p>
       </div>
+
     </div>
   </section>
-    <section class="max-w-6xl mx-auto p-6">
-    <h2 class="text-3xl font-bold text-center mb-6"></h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-      <img src="images/5.png" class="rounded-xl shadow" />
-      <img src="images/4.png" class="rounded-xl shadow" />
-      <img src="images/6.png" class="rounded-xl shadow" />
+
+  <!-- GALLERY -->
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <img src="images/5.png" class="rounded-xl shadow w-full h-auto object-cover" />
+      <img src="images/4.png" class="rounded-xl shadow w-full h-auto object-cover" />
+      <img src="images/6.png" class="rounded-xl shadow w-full h-auto object-cover" />
     </div>
   </section>
 
   <!-- TECH -->
-  <section class="max-w-4xl mx-auto px-6 py-20 fade-in">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10" data-i18n="tech_title"></h2>
-    <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-lg md:text-xl space-y-4 leading-relaxed">
+  <section class="max-w-6xl mx-auto px-4 md:px-6 py-16 fade-in">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-8" data-i18n="tech_title"></h2>
+
+    <div class="bg-slate-800 p-6 md:p-10 rounded-2xl shadow-xl text-base md:text-lg space-y-3 md:space-y-4 leading-relaxed">
       <p data-i18n="tech_capacity"></p>
       <p data-i18n="tech_ports"></p>
       <p data-i18n="tech_qc"></p>
@@ -163,15 +212,19 @@
   </section>
 
   <!-- SALE -->
-  <section id="buy" class="py-20 hero-bg text-center fade-in">
-    <div class="max-w-2xl mx-auto px-6">
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow" data-i18n="sale_price"></h2>
-      <p class="text-2xl md:text-3xl mb-4 font-light" data-i18n="sale_left"></p>
-      <p id="countdown" class="text-3xl md:text-4xl font-bold mb-10">Завантаження...</p>
-      <a href="https://vm.tiktok.com/ZMAvfYyc2" class="bg-white text-red-600 px-10 py-3 md:px-12 md:py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse" data-i18n="order_btn"></a>
-    </div>
+  <section id="buy" class="py-16 md:py-20 hero-bg text-center fade-in">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 md:mb-6" data-i18n="sale_price"></h2>
+    <p class="text-2xl md:text-3xl mb-2 md:mb-4 font-light" data-i18n="sale_left"></p>
+    <p id="countdown" class="text-3xl md:text-4xl font-bold mb-8 md:mb-10">Завантаження...</p>
+
+    <a href="https://vm.tiktok.com/ZMAvfYyc2"
+       class="order-btn bg-white text-red-600 rounded-2xl font-bold shadow-2xl hover:bg-gray-200 transition cta-pulse"
+       data-i18n="order_btn"></a>
   </section>
 
-  <footer class="text-center text-sm py-6 opacity-60">© 2025 SOONEST</footer>
+  <footer class="text-center text-sm py-6 opacity-60">
+    © 2025 SOONEST
+  </footer>
+
 </body>
 </html>
