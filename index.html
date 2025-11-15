@@ -13,6 +13,25 @@
     .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
     @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
     .active-lang { font-weight: bold; text-decoration: underline; }
+
+    /* 🔥 ФІКС ДЛЯ КНОПКИ НА МОБІЛЬНИХ */
+    .order-btn {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      padding: 14px 20px;
+      font-size: 22px;
+      box-sizing: border-box;
+      white-space: normal; /* перенос тексту */
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .order-btn {
+        font-size: 20px;
+        padding: 14px;
+      }
+    }
   </style>
 
   <script>
@@ -111,7 +130,7 @@
         <p class="text-lg md:text-xl opacity-90" data-i18n="hero_text"></p>
 
         <a href="#buy"
-           class="bg-white text-red-600 w-full md:w-auto text-center px-6 py-3 md:px-10 md:py-4 rounded-2xl font-bold text-xl md:text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse inline-block"
+           class="order-btn bg-white text-red-600 rounded-2xl font-bold shadow-2xl hover:bg-gray-200 transition cta-pulse"
            data-i18n="hero_btn"></a>
       </div>
 
@@ -171,7 +190,7 @@
     <p id="countdown" class="text-3xl md:text-4xl font-bold mb-8 md:mb-10">Завантаження...</p>
 
     <a href="https://vm.tiktok.com/ZMAvfYyc2"
-       class="bg-white text-red-600 w-full md:w-auto px-8 py-4 md:px-12 md:py-5 rounded-2xl font-bold text-2xl md:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse inline-block"
+       class="order-btn bg-white text-red-600 rounded-2xl font-bold shadow-2xl hover:bg-gray-200 transition cta-pulse"
        data-i18n="order_btn"></a>
   </section>
 
