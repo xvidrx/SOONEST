@@ -7,44 +7,23 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .hero-bg { background: linear-gradient(135deg, #ff3b3b 0%, #ff7c00 100%); }
+    .cta-pulse { animation: pulse 1.6s infinite; }
+    @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100%{transform:scale(1);} }
     .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
     @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
     .active-lang { font-weight: bold; text-decoration: underline; }
-
-    /* Кнопки */
-    .btn-common {
-      display: block;
-      width: 100%;
-      max-width: 280px;
-      margin: 0 auto;
-      padding: 14px 24px;
-      font-size: 1.25rem;
-      font-weight: 700;
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-      transition: all .2s ease;
-      white-space: normal;
-      line-height: 1.2;
+    /* Адаптив для кнопок на мобильных */
+    @media (max-width: 768px) {
+      .cta-btn { font-size: 1.5rem; padding: 1rem 2rem; }
     }
-    .btn-white {
-      background: #fff;
-      color: #ff3b3b;
-    }
-    .btn-white:hover { background: #f0f0f0; transform: scale(1.03); }
-
-    .cta-pulse { animation: pulse 1.6s infinite; }
-    @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100%{transform:scale(1);} }
-
-    /* Адаптивные изображения */
-    img { width: 100%; height: auto; object-fit: contain; }
+    img { max-width: 100%; height: auto; }
   </style>
 
   <script>
     const langData = {
       uk: {
         hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
-        hero_text: "Максимальна автономність, супер швидка зарядка та преміальний дизайн. Ємність у 80000 mAh дозволяє неодноразово заряджати смартфон, планшет чи навіть ноутбук. Підтримка QuickCharge 3.0 та Power Delivery забезпечують супер швидку зарядку сумісних пристроїв.",
+        hero_text: "Максимальна автономність, супер швидка зарядка та преміальний дизайн. Незамінний девайс під час відключень електроенергії. Ємність у 80000 mAh дозволяє неодноразово заряджати смартфон, планшет чи навіть ноутбук. Підтримка QuickCharge 3.0 та Power Delivery забезпечують супер швидку зарядку сумісних пристроїв.",
         hero_btn: "Отримати зі знижкою",
         advantages_title: "Переваги SOONEST",
         adv1: "Реальна ємність 80000 mAh",
@@ -61,7 +40,7 @@
       },
       ru: {
         hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
-        hero_text: "Максимальная автономность, сверхбыстрая зарядка и премиальный дизайн. Ёмкость 80000 mAh позволяет многократно заряжать смартфон, планшет или ноутбук. Поддержка QuickCharge 3.0 и Power Delivery обеспечивает сверхбыструю зарядку совместимых устройств.",
+        hero_text: "Максимальная автономность, сверхбыстрая зарядка и премиальный дизайн. Незаменимое устройство при отключении электроэнергии. Ёмкость 80000 mAh позволяет многократно заряжать смартфон, планшет или ноутбук. Поддержка QuickCharge 3.0 и Power Delivery обеспечивает сверхбыструю зарядку совместимых устройств.",
         hero_btn: "Получить со скидкой",
         advantages_title: "Преимущества SOONEST",
         adv1: "Реальная ёмкость 80000 mAh",
@@ -94,7 +73,7 @@
     }
 
     function countdownTimer() {
-      const targetTime = (3 * 60 * 60 + 28 * 60) * 1000;
+      const targetTime = (3 * 60 * 60 + 28 * 60) * 1000; // 3h 28m
       const endTime = new Date().getTime() + targetTime;
       const interval = setInterval(function() {
         const now = new Date().getTime();
@@ -131,9 +110,9 @@
       <div class="text-white space-y-6">
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-xl" data-i18n="hero_title"></h1>
         <p class="text-xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
-        <a href="#buy" class="btn-common btn-white cta-pulse mt-4" data-i18n="hero_btn"></a>
+        <a href="#buy" class="bg-white text-red-600 px-10 py-4 rounded-2xl font-bold text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse cta-btn mt-4 inline-block" data-i18n="hero_btn"></a>
       </div>
-      <img src="images/1.png" alt="Power Bank SOONEST" class="rounded-2xl shadow-2xl fade-in" />
+      <img src="images/1.png" alt="Power Bank SOONEST" class="rounded-2xl shadow-2xl w-full fade-in" />
     </div>
   </section>
 
@@ -146,19 +125,19 @@
         <p class="text-xl font-bold" data-i18n="adv1"></p>
       </div>
       <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/3.png" alt="6 портів" class="mx-auto w-full h-auto mb-4" />
-        <p class="text-xl font-bold" data-i18n="adv2"></p>
+        <img src="images/7.png" alt="QC 3.0 + PD 65W" class="mx-auto w-full h-auto mb-4" />
+        <p class="text-xl font-bold" data-i18n="adv3"></p>
       </div>
       <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/4.png" alt="QC 3.0 + PD 65W" class="mx-auto w-full h-auto mb-4" />
-        <p class="text-xl font-bold" data-i18n="adv3"></p>
+        <img src="images/3.png" alt="6 портів" class="mx-auto w-full h-auto mb-4" />
+        <p class="text-xl font-bold" data-i18n="adv2"></p>
       </div>
     </div>
   </section>
 
   <!-- GALLERY -->
-  <section class="max-w-6xl mx-auto p-6 fade-in">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+  <section class="max-w-6xl mx-auto p-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
       <img src="images/5.png" class="rounded-xl shadow" />
       <img src="images/4.png" class="rounded-xl shadow" />
       <img src="images/6.png" class="rounded-xl shadow" />
@@ -181,7 +160,7 @@
     <h2 class="text-5xl font-extrabold mb-6 drop-shadow" data-i18n="sale_price"></h2>
     <p class="text-3xl mb-4 font-light" data-i18n="sale_left"></p>
     <p id="countdown" class="text-4xl font-bold mb-10">Завантаження...</p>
-    <a href="https://vm.tiktok.com/ZMAvfYyc2" class="btn-common btn-white cta-pulse mt-4" data-i18n="order_btn"></a>
+    <a href="https://vm.tiktok.com/ZMAvfYyc2" class="bg-white text-red-600 px-10 py-4 rounded-2xl font-bold text-2xl shadow-2xl hover:bg-gray-200 transition cta-pulse cta-btn" data-i18n="order_btn"></a>
   </section>
 
   <footer class="text-center text-sm py-6 opacity-60">© 2025 SOONEST</footer>
