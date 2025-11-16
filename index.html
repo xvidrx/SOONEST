@@ -5,160 +5,314 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SOONEST 80000 mAh Fast Charge</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     .hero-bg { background: linear-gradient(135deg, #ff3b3b 0%, #ff7c00 100%); }
     .cta-pulse { animation: pulse 1.6s infinite; }
     @keyframes pulse { 0% { transform: scale(1);} 50% { transform: scale(1.05);} 100%{transform:scale(1);} }
-    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn .8s forwards; }
-    @keyframes fadeIn { to { opacity:1; transform:translateY(0);} }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s ease;
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
     .active-lang { font-weight: bold; text-decoration: underline; }
   </style>
 
-  <script>
-    const langData = {
-      uk: {
-        hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
-        hero_text: "Максимальна автономність, супер швидка зарядка та преміальний дизайн. Незамінний девайс під час відключень електроенергії. Ємність у 80000 mAh дозволяє неодноразово заряджати смартфон, планшет чи навіть ноутбук. Підтримка QuickCharge 3.0 та Power Delivery забезпечують супер швидку зарядку сумісних пристроїв.",
-        hero_btn: "Отримати зі знижкою",
-        advantages_title: "Переваги SOONEST",
-        adv1: "Реальна ємність 80000 mAh",
-        adv2: "6 портів",
-        adv3: "QC 3.0 22.5W",
-        tech_title: "Технічні характеристики",
-        tech_capacity: "Ємність: 80000 mAh",
-        tech_ports: "Порти: USB-A ×4, USB-C, MicroUSB, Lightning",
-        tech_qc: "QC 3.0: до 22.5W",
-        tech_protect: "Захист: перегрів, КЗ, перенапруга",
-        sale_price: "Акційна ціна: 2500 грн",
-        sale_left: "До кінця акції залишилось:",
-        order_btn: "Замовити зараз"
-      },
-      ru: {
-        hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
-        hero_text: "Максимальная автономность, сверхбыстрая зарядка и премиальный дизайн. Незаменимое устройство при отключении электроэнергии. Ёмкость 80000 mAh позволяет многократно заряжать смартфон, планшет или ноутбук. Поддержка QuickCharge 3.0 и Power Delivery обеспечивает сверхбыструю зарядку совместимых устройств.",
-        hero_btn: "Получить со скидкой",
-        advantages_title: "Преимущества SOONEST",
-        adv1: "Реальная ёмкость 80000 mAh",
-        adv2: "6 портов",
-        adv3: "QC 3.0 22.5W",
-        tech_title: "Технические характеристики",
-        tech_capacity: "Ёмкость: 80000 mAh",
-        tech_ports: "Порты: USB-A ×4, USB-C, MicroUSB, Lightning",
-        tech_qc: "QC 3.0: до 22.5W",
-        tech_protect: "Защита: перегрев, КЗ, перенапряжение",
-        sale_price: "Акционная цена: 2500 грн",
-        sale_left: "До конца акции осталось:",
-        order_btn: "Заказать сейчас"
+<script>
+/* -----------------------------------------
+      I18N RU + UA
+------------------------------------------*/
+const langData = {
+  uk: {
+    hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
+    hero_text: "Максимальна автономність, супер швидка зарядка та преміальний дизайн. Незамінний девайс під час відключень електроенергії. Ємність у 80000 mAh дозволяє неодноразово заряджати смартфон, планшет чи навіть ноутбук. Підтримка QuickCharge 3.0 та Power Delivery забезпечують супер швидку зарядку сумісних пристроїв.",
+    hero_btn: "Отримати зі знижкою",
+
+    advantages_title: "Переваги SOONEST",
+    adv1: "Реальна ємність 80000 mAh",
+    adv2: "6 портів",
+    adv3: "QC 3.0 22.5W",
+
+    tech_title: "Технічні характеристики",
+    tech_capacity: "Ємність: 80000 mAh",
+    tech_ports: "Порти: USB-A ×4, USB-C, MicroUSB, Lightning",
+    tech_qc: "QC 3.0: до 22.5W",
+    tech_protect: "Захист: перегрів, КЗ, перенапруга",
+
+    sale_price: "Акційна ціна: 2500 грн",
+    sale_left: "До кінця акції залишилось:",
+    order_btn: "Замовити зараз",
+
+    live_people: "людей зараз переглядають цей товар",
+    stats_views: "Переглядів сьогодні",
+    stats_orders: "Замовлень оформлено",
+    stats_left: "ЗАЛИШИЛОСЬ",
+    stats_items: "АКЦІЙНИХ ПАУЕРБАНКІВ"
+  },
+
+  ru: {
+    hero_title: "Power Bank SOONEST 80000 mAh Fast Charge 65W",
+    hero_text: "Максимальная автономность, сверхбыстрая зарядка и премиальный дизайн. Незаменимое устройство при отключении электроэнергии. Ёмкость 80000 mAh позволяет многократно заряжать смартфон, планшет или ноутбук. Поддержка QuickCharge 3.0 и Power Delivery обеспечивает сверхбыструю зарядку совместимых устройств.",
+    hero_btn: "Получить со скидкой",
+
+    advantages_title: "Преимущества SOONEST",
+    adv1: "Реальная ёмкость 80000 mAh",
+    adv2: "6 портов",
+    adv3: "QC 3.0 22.5W",
+
+    tech_title: "Технические характеристики",
+    tech_capacity: "Ёмкость: 80000 mAh",
+    tech_ports: "Порты: USB-A ×4, USB-C, MicroUSB, Lightning",
+    tech_qc: "QC 3.0: до 22.5W",
+    tech_protect: "Защита: перегрев, КЗ, перенапряжение",
+
+    sale_price: "Акционная цена: 2500 грн",
+    sale_left: "До конца акции осталось:",
+    order_btn: "Заказать сейчас",
+
+    live_people: "человек сейчас смотрят этот товар",
+    stats_views: "Просмотров сегодня",
+    stats_orders: "Оформлено заказов",
+    stats_left: "ОСТАЛОСЬ",
+    stats_items: "АКЦИОННЫХ ПАУЭРБАНКОВ"
+  }
+};
+
+function switchLang(l) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.innerText = langData[l][key];
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
+  document.getElementById('lang-' + l).classList.add('active-lang');
+}
+
+function detectBrowserLang() {
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith('ru')) switchLang('ru');
+  else switchLang('uk');
+}
+
+/* -----------------------------------------
+      COUNTDOWN
+------------------------------------------*/
+function countdownTimer() {
+  const targetTime = (3 * 60 * 60 + 28 * 60) * 1000;
+  const endTime = new Date().getTime() + targetTime;
+
+  const interval = setInterval(function() {
+    const now = new Date().getTime();
+    const remaining = endTime - now;
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      document.getElementById('countdown').innerHTML = "Акция завершена!";
+      return;
+    }
+
+    let h = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+    let m = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+    let s = Math.floor((remaining % (1000 * 60)) / 1000);
+
+    document.getElementById('countdown').innerHTML = `${h}ч ${m}м ${s}с`;
+  }, 1000);
+}
+
+/* -----------------------------------------
+      LIVE STATS
+------------------------------------------*/
+let liveCount = 21,
+    totalViews = 12039,
+    totalOrders = 6091;
+
+function updLive() {
+  const MIN = 15, MAX = 250;
+  liveCount += Math.random() > 0.5 ? 1 : -1;
+
+  if (liveCount < MIN) liveCount = MIN;
+  if (liveCount > MAX) liveCount = MAX;
+
+  document.getElementById("liveCount").innerText = liveCount;
+
+  setTimeout(updLive, Math.random() * 500 + 600);
+}
+
+function updViews() {
+  totalViews += Math.random() > 0.8 ? 3 : 1;
+  document.getElementById("totalViews").innerText = totalViews.toLocaleString("uk-UA");
+  setTimeout(updViews, Math.random() * 3000 + 2000);
+}
+
+function updOrders() {
+  totalOrders += 1;
+  document.getElementById("totalOrders").innerText = totalOrders.toLocaleString("uk-UA");
+
+  let left = 6091 + 17 - totalOrders;
+  if (left < 0) left = 0;
+  document.getElementById("leftCount").innerText = left;
+
+  setTimeout(updOrders, Math.random() * 20000 + 20000);
+}
+
+/* -----------------------------------------
+      SCROLL REVEAL
+------------------------------------------*/
+document.addEventListener("DOMContentLoaded", () => {
+  const reveals = document.querySelectorAll(".reveal");
+
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    reveals.forEach((el) => {
+      const boxTop = el.getBoundingClientRect().top;
+
+      if (boxTop < triggerBottom) {
+        el.classList.add("show");
       }
-    };
+    });
+  };
 
-    function switchLang(l) {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        el.innerText = langData[l][key];
-      });
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active-lang'));
-      document.getElementById('lang-' + l).classList.add('active-lang');
-    }
+  revealOnScroll();
+  window.addEventListener("scroll", revealOnScroll);
+});
 
-    function detectBrowserLang() {
-      const userLang = navigator.language || navigator.userLanguage;
-      if(userLang.startsWith('ru')) switchLang('ru');
-      else switchLang('uk');
-    }
+/* -----------------------------------------
+      INIT
+------------------------------------------*/
+window.onload = () => {
+  detectBrowserLang();
+  countdownTimer();
+  setTimeout(updLive, 500);
+  setTimeout(updViews, 2000);
+  setTimeout(updOrders, 8000);
+};
+</script>
 
-    function countdownTimer() {
-      const targetTime = (3 * 60 * 60 + 28 * 60) * 1000; // 3h 28m
-      const endTime = new Date().getTime() + targetTime;
-      const interval = setInterval(function() {
-        const now = new Date().getTime();
-        const remainingTime = endTime - now;
-        if (remainingTime <= 0) {
-          clearInterval(interval);
-          document.getElementById('countdown').innerHTML = "Акція завершена!";
-        } else {
-          const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
-          const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-          document.getElementById('countdown').innerHTML = hours + "ч " + minutes + "м " + seconds + "с";
-        }
-      }, 1000);
-    }
-
-    window.onload = function() {
-      detectBrowserLang();
-      countdownTimer();
-    };
-  </script>
 </head>
+
 <body class="bg-slate-900 text-white font-sans">
 
-  <!-- LANGUAGE SWITCH CENTER -->
-  <div class="p-4 flex gap-3 justify-center text-lg">
-    <button id="lang-uk" class="lang-btn" onclick="switchLang('uk')">UA</button>
-    <button id="lang-ru" class="lang-btn" onclick="switchLang('ru')">RU</button>
+<!-- LANG SWITCH -->
+<div class="p-4 flex gap-3 justify-center text-lg reveal">
+  <button id="lang-uk" class="lang-btn" onclick="switchLang('uk')">UA</button>
+  <button id="lang-ru" class="lang-btn" onclick="switchLang('ru')">RU</button>
+</div>
+
+<!-- HERO -->
+<section class="hero-bg py-14 md:py-20 shadow-xl reveal">
+  <div class="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+    <div class="space-y-6 md:space-y-8 max-w-xl">
+      <h1 class="text-3xl md:text-6xl font-extrabold leading-tight" data-i18n="hero_title"></h1>
+      
+      <p class="text-lg md:text-2xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
+
+      <a href="#buy"
+         class="bg-white text-red-600 
+                w-full sm:w-auto inline-block text-center
+                px-6 py-3 md:px-10 md:py-4 
+                rounded-2xl font-bold 
+                text-xl md:text-3xl 
+                shadow-2xl cta-pulse"
+         data-i18n="hero_btn"></a>
+    </div>
+
+    <img src="images/1.png" class="rounded-2xl shadow-2xl w-full" />
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20 reveal">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-10" data-i18n="advantages_title"></h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center reveal">
+      <img src="images/2.png" class="mx-auto mb-4 w-32 md:w-40" />
+      <p class="text-lg md:text-xl font-bold" data-i18n="adv1"></p>
+    </div>
+    <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center reveal">
+      <img src="images/7.png" class="mx-auto mb-4 w-32 md:w-40" />
+      <p class="text-lg md:text-xl font-bold" data-i18n="adv3"></p>
+    </div>
+    <div class="bg-slate-800 p-6 md:p-8 rounded-2xl shadow-xl text-center reveal">
+      <img src="images/3.png" class="mx-auto mb-4 w-32 md:w-40" />
+      <p class="text-lg md:text-xl font-bold" data-i18n="adv2"></p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGES -->
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-10 reveal">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <img src="images/5.png" class="rounded-xl shadow reveal" />
+    <img src="images/4.png" class="rounded-xl shadow reveal" />
+    <img src="images/6.png" class="rounded-xl shadow reveal" />
+  </div>
+</section>
+
+<!-- TECH -->
+<section class="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20 reveal">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-10" data-i18n="tech_title"></h2>
+
+  <div class="bg-slate-800 p-8 md:p-10 rounded-2xl shadow-xl text-base md:text-lg space-y-4 leading-relaxed reveal">
+    <p data-i18n="tech_capacity"></p>
+    <p data-i18n="tech_ports"></p>
+    <p data-i18n="tech_qc"></p>
+    <p data-i18n="tech_protect"></p>
+  </div>
+</section>
+
+<!-- LIVE STATS -->
+<section class="max-w-4xl mx-auto px-4 md:px-6 py-10 text-center reveal">
+  <p class="text-teal-300 text-sm md:text-base">
+    👀 <span id="liveCount">21</span> <span data-i18n="live_people"></span>
+  </p>
+
+  <div class="flex justify-between text-sm md:text-base mt-3 bg-white/5 p-4 rounded-xl reveal">
+    <div>
+      👁️ <strong id="totalViews">12,039</strong><br>
+      <span class="text-gray-400 text-xs" data-i18n="stats_views"></span>
+    </div>
+    <div>
+      🔋 <strong id="totalOrders">6,091</strong><br>
+      <span class="text-gray-400 text-xs" data-i18n="stats_orders"></span>
+    </div>
   </div>
 
-  <!-- HERO SECTION -->
-  <section class="hero-bg py-20 shadow-xl fade-in">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="text-white space-y-6">
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-xl" data-i18n="hero_title"></h1>
-        <p class="text-xl md:text-2xl opacity-90 leading-relaxed" data-i18n="hero_text"></p>
-        <a href="#buy" class="bg-white text-red-600 px-8 sm:px-10 py-3 sm:py-4 rounded-2xl font-bold text-2xl sm:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse mt-4 inline-block" data-i18n="hero_btn"></a>
-      </div>
-      <img src="images/1.png" alt="Power Bank SOONEST" class="rounded-2xl shadow-2xl w-full fade-in" />
-    </div>
-  </section>
+  <p class="bg-red-500/20 text-sm md:text-base p-3 border-l-4 border-red-600 mt-4 reveal">
+    ⚠️ <span data-i18n="stats_left"></span>
+    <span id="leftCount">17</span>
+    <span data-i18n="stats_items"></span>
+  </p>
+</section>
 
-  <!-- ADVANTAGES -->
-  <section class="max-w-6xl mx-auto px-6 py-20 fade-in">
-    <h2 class="text-4xl font-bold text-center mb-12" data-i18n="advantages_title"></h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/2.png" alt="Ємність 80000 mAh" class="mx-auto w-full h-auto mb-4" />
-        <p class="text-xl font-bold" data-i18n="adv1"></p>
-      </div>
-      <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/7.png" alt="QC 3.0 25W" class="mx-auto w-full h-auto mb-4" />
-        <p class="text-xl font-bold" data-i18n="adv3"></p>
-      </div>
-      <div class="bg-slate-800 p-8 rounded-2xl shadow-xl text-center hover:bg-slate-700 transition transform hover:-translate-y-2">
-        <img src="images/3.png" alt="6 портів" class="mx-auto w-full h-auto mb-4" />
-        <p class="text-xl font-bold" data-i18n="adv2"></p>
-      </div>
-    </div>
-  </section>
+<!-- SALE BLOCK -->
+<section id="buy" class="py-14 md:py-20 hero-bg text-center reveal">
+  <h2 class="text-4xl md:text-5xl font-extrabold mb-6" data-i18n="sale_price"></h2>
+  <p class="text-2xl md:text-3xl mb-4 font-light" data-i18n="sale_left"></p>
 
-  <!-- IMAGES -->
-  <section class="max-w-6xl mx-auto p-6 fade-in">
-    <h2 class="text-3xl font-bold text-center mb-6"></h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <img src="images/5.png" class="rounded-xl shadow w-full h-auto object-cover" />
-      <img src="images/4.png" class="rounded-xl shadow w-full h-auto object-cover" />
-      <img src="images/6.png" class="rounded-xl shadow w-full h-auto object-cover" />
-    </div>
-  </section>
+  <p id="countdown" class="text-3xl md:text-4xl font-bold mb-10">Завантаження...</p>
 
-  <!-- TECH -->
-  <section class="max-w-6xl mx-auto px-6 py-20 fade-in">
-    <h2 class="text-4xl font-bold text-center mb-10" data-i18n="tech_title"></h2>
-    <div class="bg-slate-800 p-10 rounded-2xl shadow-xl text-lg space-y-4 leading-relaxed">
-      <p data-i18n="tech_capacity"></p>
-      <p data-i18n="tech_ports"></p>
-      <p data-i18n="tech_qc"></p>
-      <p data-i18n="tech_protect"></p>
-    </div>
-  </section>
-  
-  <!-- SALE -->
-  <section id="buy" class="py-20 hero-bg text-center fade-in">
-    <h2 class="text-5xl font-extrabold mb-6 drop-shadow" data-i18n="sale_price"></h2>
-    <p class="text-3xl mb-4 font-light" data-i18n="sale_left"></p>
-    <p id="countdown" class="text-4xl font-bold mb-10">Завантаження...</p>
-    <a href="https://vm.tiktok.com/ZMAvfYyc2" class="bg-white text-red-600 px-8 sm:px-12 py-3 sm:py-5 rounded-2xl font-bold text-2xl sm:text-3xl shadow-2xl hover:bg-gray-200 transition cta-pulse" data-i18n="order_btn"></a>
-  </section>
+  <a href="https://vm.tiktok.com/ZMAvfYyc2"
+     class="bg-white text-red-600 
+            px-8 py-4 md:px-12 md:py-5 
+            rounded-2xl font-bold 
+            text-2xl md:text-3xl 
+            shadow-2xl cta-pulse inline-block text-center"
+     data-i18n="order_btn"></a>
+</section>
 
-  <footer class="text-center text-sm py-6 opacity-60">© 2025 SOONEST</footer>
+<footer class="text-center text-sm py-6 opacity-60 reveal">© 2025 SOONEST</footer>
+
 </body>
 </html>
